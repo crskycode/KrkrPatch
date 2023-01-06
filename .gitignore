@@ -1,0 +1,5 @@
+.vs/
+vcpkg_installed/
+Build/
+*.aps
+*.user

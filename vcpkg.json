@@ -1,0 +1,17 @@
+{
+  "builtin-baseline": "12c2a93b4007612b5ffa980c9d2235eb0bcac10f",
+  "dependencies": [
+    {
+      "name": "nlohmann-json",
+      "version>=": "3.11.2"
+    },
+    {
+      "name": "spdlog",
+      "version>=": "1.11.0"
+    },
+    {
+      "name": "detours",
+      "version>=": "4.0.1#7"
+    }
+  ]
+}
