@@ -24,6 +24,8 @@ You need to create `KrkrPatch.json` with the following format.
 
 Put `KrkrPatchLoader.exe` and `KrkrPatch.dll` and `KrkrPatch.json` to your game folder.
 
+Use `GARbro` create your `patch.xp3` with `No Crypt` and `keep directory structure`.
+
 Finally, Run the `KrkrPatchLoader`.
 
 ## Notes
