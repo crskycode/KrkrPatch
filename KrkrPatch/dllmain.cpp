@@ -22,6 +22,7 @@ static HMODULE g_hDLL;
 
 static std::list<std::wstring> g_patchProtocols;
 static std::list<std::wstring> g_patchArchives;
+static bool g_patchNoProtocol;
 
 
 template<class T>
@@ -58,14 +59,21 @@ tTJSBinaryStream* _fastcall HookTVPCreateStream(const ttstr& name, tjs_uint flag
 
 		bool accepted = false;
 
-		for (auto& protocol : g_patchProtocols)
+		if (wcsstr(inarcname, L"://") != NULL)
 		{
-			if (_wcsnicmp(inarcname, protocol.c_str(), protocol.length()) == 0)
+			for (auto& protocol : g_patchProtocols)
 			{
-				inarcname += protocol.length();
-				accepted = true;
-				break;
+				if (_wcsnicmp(inarcname, protocol.c_str(), protocol.length()) == 0)
+				{
+					inarcname += protocol.length();
+					accepted = true;
+					break;
+				}
 			}
+		}
+		else if (g_patchNoProtocol)
+		{
+			accepted = true;
 		}
 
 		if (accepted)
@@ -221,6 +229,10 @@ void LoadConfig()
 			g_patchArchives.emplace_back(Encoding::Utf8ToUtf16(arc.get<std::string>()));
 			spdlog::info("Patch archive: {}", arc.get<std::string>());
 		}
+
+		// # patch no protocol file
+
+		g_patchNoProtocol = cfg["patchNoProtocol"].get<bool>();
 	}
 	catch (const std::exception& e)
 	{
