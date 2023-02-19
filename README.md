@@ -18,7 +18,8 @@ You need to create `KrkrPatch.json` with the following format.
   ],
   "patchArchives": [
     "your_patch.xp3"
-  ]
+  ],
+  "patchNoProtocol": false
 }
 ```
 
@@ -33,3 +34,5 @@ Finally, Run the `KrkrPatchLoader`.
 You can rename `KrkrPatchLoader` or change the icon and version information with some tool like `Resource Hacker`.
 
 Don't rename `KrkrPatch.dll` and `KrkrPatch.json`.
+
+Set `patchNoProtocol` to `true` if some files not patched.
