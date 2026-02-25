@@ -13,11 +13,11 @@ You need to create `KrkrPatch.json` with the following format.
   "logLevel": 0,
   "patchProtocols": [
     "arc://",
-    "archive://",
-    "psb://"
+    "archive://"
   ],
   "patchArchives": [
-    "your_patch.xp3"
+    "your_patch.xp3",
+    "your_folder"
   ],
   "patchNoProtocol": false
 }
