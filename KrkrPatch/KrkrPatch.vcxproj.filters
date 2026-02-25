@@ -42,6 +42,9 @@
     <ClCompile Include="..\KrkrPlugin\tp_stub.cpp">
       <Filter>KrkrPlugin</Filter>
     </ClCompile>
+    <ClCompile Include="..\Common\directory.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Common\pe.h">
@@ -64,6 +67,9 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\directory.h">
+      <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

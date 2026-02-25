@@ -4,6 +4,7 @@
 #include "../Common/encoding.h"
 #include "../Common/path.h"
 #include "../Common/pe.h"
+#include "../Common/stringhelper.h"
 #include "../Common/util.h"
 #include "../KrkrPlugin/tp_stub.h"
 #include <nlohmann/json.hpp>
@@ -59,7 +60,11 @@ tTJSBinaryStream* _fastcall HookTVPCreateStream(const ttstr& name, tjs_uint flag
 
 		bool accepted = false;
 
-		if (wcsstr(inarcname, L"://") != NULL)
+		if (wcslen(inarcname) && (StringHelper::StartsWith(inarcname, L"file://") || StringHelper::StartsWith(inarcname + 1, L":\\")))
+		{
+			// Ignore full path
+		}
+		else if (wcsstr(inarcname, L"://") != NULL)
 		{
 			for (auto& protocol : g_patchProtocols)
 			{
@@ -85,13 +90,20 @@ tTJSBinaryStream* _fastcall HookTVPCreateStream(const ttstr& name, tjs_uint flag
 
 			for (auto& arc : g_patchArchives)
 			{
-				auto patchname = TVPGetAppPath() + arc.c_str() + L">" + inarcname;
+				auto patchname = TVPGetAppPath() + arc.c_str();
 
-				// spdlog::debug("Find {}", Encoding::Utf16ToUtf8(patchname.c_str()));
+				if (StringHelper::EndsWith(arc, L".xp3"))
+					patchname += L">";
+				else
+					patchname += L"/";
+
+				patchname += inarcname;
+
+				spdlog::debug("Find {}", Encoding::Utf16ToUtf8(patchname.c_str()));
 
 				if (TVPIsExistentStorageNoSearchNoNormalize(patchname))
 				{
-					// spdlog::debug("Open {}", Encoding::Utf16ToUtf8(patchname.c_str()));
+					spdlog::debug("Open {}", Encoding::Utf16ToUtf8(patchname.c_str()));
 
 					return pfnTVPCreateStream(patchname, flags);
 				}
